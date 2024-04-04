@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using BlazorAdmin.Helpers;
-using BlazorAdmin.Pages.CatalogItemPage;
+using BlazorAdmin.Pages.OrderPage;
 using BlazorShared.Interfaces;
 using BlazorShared.Models;
 
@@ -10,15 +10,8 @@ namespace BlazorAdmin.Pages.OrdersPage;
 public partial class List : BlazorComponent
 {
     [Microsoft.AspNetCore.Components.Inject]
-    public ICatalogItemService CatalogItemService { get; set; }
+    public IOrderService OrderService { get; set; }
 
-    [Microsoft.AspNetCore.Components.Inject]
-    public ICatalogLookupDataService<CatalogBrand> CatalogBrandService { get; set; }
-
-    [Microsoft.AspNetCore.Components.Inject]
-    public ICatalogLookupDataService<CatalogType> CatalogTypeService { get; set; }
-
-    private List<OrderItem> orderItems = new List<Order>();
     private List<Order> orders = new List<Order>();
 
     private Details DetailsComponent { get; set; }
@@ -26,9 +19,8 @@ public partial class List : BlazorComponent
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
-        {
-            orderItems = await CatalogItemService.List();
-            orders = await CatalogTypeService.List();
+        {           
+            orders = await OrderService.List();
 
             CallRequestRefresh();
         }
@@ -41,9 +33,9 @@ public partial class List : BlazorComponent
         await DetailsComponent.Open(id);
     }
 
-    private async Task ReloadCatalogItems()
+    private async Task ReloadOrder()
     {
-        orderItems = await CatalogItemService.List();
+        orders = await OrderService.List();
         StateHasChanged();
     }
 }

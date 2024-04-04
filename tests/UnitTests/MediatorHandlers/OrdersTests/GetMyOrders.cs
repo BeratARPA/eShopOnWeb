@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using Ardalis.Specification;
+﻿using Ardalis.Specification;
 using Microsoft.eShopWeb.ApplicationCore.Entities.OrderAggregate;
 using Microsoft.eShopWeb.ApplicationCore.Interfaces;
 using Microsoft.eShopWeb.Web.Features.MyOrders;
@@ -18,7 +15,7 @@ public class GetMyOrders
     {
         var item = new OrderItem(new CatalogItemOrdered(1, "ProductName", "URI"), 10.00m, 10);
         var address = new Address("", "", "", "", "");
-        Order order = new Order("buyerId", address, new List<OrderItem> { item });
+        Order order = new Order("buyerId", address, new List<OrderItem> { item },"Pending");
               
         _mockOrderRepository.ListAsync(Arg.Any<ISpecification<Order>>(), default).Returns(new List<Order> { order });
     }

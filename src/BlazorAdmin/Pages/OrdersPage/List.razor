@@ -2,12 +2,13 @@
 @attribute [Authorize(Roles = BlazorShared.Authorization.Constants.Roles.ADMINISTRATORS)]
 @inherits BlazorAdmin.Helpers.BlazorComponent
 @namespace BlazorAdmin.Pages.OrdersPage
+@using BlazorAdmin.Pages.OrderPage
 
 <PageTitle>eShopOnWeb Admin: Manage Orders</PageTitle>
 
 <h1>Manage Orders</h1>
 
-@if (catalogItems == null)
+@if (orders == null)
 {
     <Spinner></Spinner>
 }
@@ -25,22 +26,23 @@ else
             </tr>
         </thead>
         <tbody class="cursor-pointer">
-            @foreach (var item in catalogItems)
+            @foreach (var item in orders)
             {
-
-            <td>@item.CatalogType</td>
-            <td>@item.CatalogBrand</td>
-            <td>@item.Id</td>
-            <td>@item.Name</td>
-            <td>@item.Description</td>
-            <td>@item.Price</td>
-            <td>
-                <button @onclick="@(() => DetailsClick(item.Id))" @onclick:stopPropagation="true" class="btn btn-primary">
-                    Details
-                </button>
-            </td>
-
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.OrderDate</td>
+                    <td>@item.BuyerId</td>
+                    <td>@item.Total.ToString("N2")</td>
+                    <td>@item.State</td>
+                    <td>
+                        <button @onclick="@(() => DetailsClick(item.Id))" class="btn btn-primary">
+                            Details
+                        </button>
+                    </td>
+                </tr>
             }
         </tbody>
     </table>
+
+    <Details OnEditClick="DetailsClick" OnReloadClick="ReloadOrder" @ref="DetailsComponent"></Details>
 }

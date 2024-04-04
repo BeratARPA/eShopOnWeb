@@ -47,13 +47,13 @@ public class CustomerOrdersWithItemsSpecification
             new List<OrderItem>
             {
                     new OrderItem(new CatalogItemOrdered(1, "Product1", "testurl"), 10.50m, 1)
-            }));
+            }, "Pending"));
         ordersList.Add(new Order(_buyerId, _shipToAddress,
             new List<OrderItem>
             {
                     new OrderItem(new CatalogItemOrdered(2, "Product2", "testurl"), 15.50m, 2),
                     new OrderItem(new CatalogItemOrdered(2, "Product3", "testurl"), 20.50m, 1)
-            }));
+            }, "Pending"));
 
         return ordersList;
     }

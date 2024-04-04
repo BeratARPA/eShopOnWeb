@@ -51,7 +51,7 @@ public class HttpService
     {
         var content = ToJson(dataToSend);
 
-        var result = await _httpClient.PostAsync($"{_apiUrl}{uri}", content);
+        var result = await _httpClient.PostAsync($"{_apiUrl}{uri}",content);
         if (!result.IsSuccessStatusCode)
         {
             var exception = JsonSerializer.Deserialize<ErrorDetails>(await result.Content.ReadAsStringAsync(), new JsonSerializerOptions
@@ -71,7 +71,7 @@ public class HttpService
     {
         var content = ToJson(dataToSend);
 
-        var result = await _httpClient.PutAsync($"{_apiUrl}{uri}", content);
+        var result = await _httpClient.PutAsync($"{_apiUrl}{uri}",content);
         if (!result.IsSuccessStatusCode)
         {
             _toastService.ShowToast("Error", ToastLevel.Error);
